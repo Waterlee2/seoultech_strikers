@@ -1,0 +1,2 @@
+# seoultech_strikers
+LOCALMON
