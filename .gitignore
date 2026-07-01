@@ -1,0 +1,13 @@
+# 의존성
+node_modules/
+
+# 환경 변수 (API 키 등 민감 정보)
+.env
+
+# 로그
+*.log
+npm-debug.log*
+
+# OS 파일
+.DS_Store
+Thumbs.db
