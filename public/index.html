@@ -5,21 +5,21 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <title>로컬몬 · 전남</title>
 <style>
-  /* ===== 토스 스타일 토큰 =====
-     순백 배경, 토스블루 포인트, 큰 타이포, 둥근 카드, 넉넉한 여백 */
+  /* ===== 로컬몬 스타일 토큰 (전남 발표자료 컬러) =====
+     순백 배경, 자연 그린 포인트 + 오렌지 악센트, 큰 타이포, 둥근 카드, 넉넉한 여백 */
   :root{
-    --blue:#3182f6; --blue-dark:#1b64da; --blue-light:#e8f2ff;
+    --blue:#2C5F2D; --blue-dark:#1C3A20; --blue-light:#E9F1E2;
     --red:#f04452; --red-light:#ffeaec;
-    --ink:#191f28; --gray-700:#4e5968; --gray-500:#8b95a1; --gray-300:#d1d6db; --gray-100:#f2f4f6;
+    --ink:#1C3A20; --gray-700:#4e5968; --gray-500:#8b95a1; --gray-300:#d1d6db; --gray-100:#f2f4f6;
     --bg:#ffffff; --card:#ffffff;
-    --gold:#f5a623;
+    --gold:#E4831E;
     --shadow:0 2px 8px rgba(0,0,0,.06); --shadow-lg:0 6px 24px rgba(0,0,0,.1);
     --r:16px; --r-lg:20px;
   }
   *{box-sizing:border-box;-webkit-tap-highlight-color:transparent;
     font-family:'Toss Product Sans','Apple SD Gothic Neo','Malgun Gothic',-apple-system,sans-serif;}
   html,body{margin:0;padding:0;}
-  body{ background:#e9ecef; color:var(--ink); display:flex; justify-content:center; min-height:100vh;}
+  body{ background:#E4E7DF; color:var(--ink); display:flex; justify-content:center; min-height:100vh;}
   .phone{ width:100%; max-width:412px; min-height:100vh; background:var(--bg);
     position:relative; overflow:hidden; box-shadow:var(--shadow-lg);}
 
@@ -48,7 +48,7 @@
 
   /* 포인트 배너 (홈) */
   .point-banner{ background:var(--blue); color:#fff; border-radius:var(--r-lg); padding:20px 22px;
-    box-shadow:0 6px 20px rgba(49,130,246,.28); margin-bottom:16px;}
+    box-shadow:0 6px 20px rgba(44,95,45,.28); margin-bottom:16px;}
   .point-banner .lbl{ font-size:13px; opacity:.9; font-weight:600;}
   .point-banner .amt{ font-size:32px; font-weight:800; letter-spacing:-1px; margin-top:2px;}
   .point-banner .amt small{ font-size:18px; font-weight:700;}
@@ -138,13 +138,13 @@
   .lang-tabs button{ flex:1; border:1.5px solid var(--gray-300); background:#fff; color:var(--gray-700);
     border-radius:9px; padding:7px 0; font-size:12.5px; font-weight:700; cursor:pointer; font-family:inherit;}
   .lang-tabs button.on{ border-color:var(--blue); color:var(--blue); background:var(--blue-light);}
-  .dosent{ background:linear-gradient(135deg,#f7faff,#eef5ff); border:1px solid var(--blue-light);
+  .dosent{ background:linear-gradient(135deg,#F4F6F1,#E9F1E2); border:1px solid var(--blue-light);
     border-radius:14px; padding:14px 16px; font-size:13.5px; line-height:1.6; color:var(--gray-700);}
   .dosent .tag{ display:inline-flex; align-items:center; gap:5px; font-size:11px; font-weight:800;
     color:var(--blue); background:#fff; padding:3px 9px; border-radius:99px; margin-bottom:8px;}
 
   /* 내정보 */
-  .me-point{ background:var(--blue); color:#fff; border-radius:var(--r-lg); padding:24px 22px; box-shadow:0 6px 20px rgba(49,130,246,.28);}
+  .me-point{ background:var(--blue); color:#fff; border-radius:var(--r-lg); padding:24px 22px; box-shadow:0 6px 20px rgba(44,95,45,.28);}
   .me-point .lbl{ font-size:13px; opacity:.9; font-weight:600;}
   .me-point .amt{ font-size:36px; font-weight:800; letter-spacing:-1px; margin:2px 0 16px;}
   .me-point .use-btn{ width:100%; background:#fff; color:var(--blue); border:none; border-radius:13px;
@@ -179,7 +179,7 @@
   .ocr-modal .bar{ display:flex; align-items:center; gap:12px; padding:16px 20px; border-bottom:1px solid var(--gray-100);}
   .ocr-modal .bar .x{ background:none; border:none; font-size:22px; cursor:pointer; color:var(--ink);}
   .ocr-modal .bar .t{ font-weight:800; font-size:17px;}
-  .ocr-body{ padding:24px 20px; flex:1;}
+  .ocr-body{ padding:24px 20px; flex:1; overflow-y:auto; -webkit-overflow-scrolling:touch;}
   .shoot{ display:flex; flex-direction:column; align-items:center; justify-content:center;
     border:2px dashed var(--blue); border-radius:var(--r-lg); padding:40px 18px; text-align:center;
     background:var(--blue-light); cursor:pointer;}
@@ -199,6 +199,32 @@
     font-weight:800; cursor:pointer; font-family:inherit; margin-top:12px;}
   .btn-blue{ background:var(--blue); color:#fff;}
   input[type=file]{display:none;}
+
+  /* 획득 로컬몬 보상 팝업 */
+  .reward-dim{ position:fixed; inset:0; background:rgba(0,0,0,.5); z-index:90;
+    display:none; align-items:center; justify-content:center; padding:24px;}
+  .reward-dim.show{ display:flex;}
+  .reward-card{ width:100%; max-width:340px; background:#fff; border-radius:24px;
+    padding:26px 22px 22px; text-align:center; box-shadow:0 12px 40px rgba(0,0,0,.25);
+    animation:pop .35s cubic-bezier(.2,.9,.3,1);}
+  @keyframes pop{ from{opacity:0; transform:scale(.85) translateY(10px);} to{opacity:1; transform:none;}}
+  .reward-card .rw-title{ font-size:20px; font-weight:800; letter-spacing:-.4px;}
+  .reward-card .rw-sub{ font-size:13px; color:var(--gray-500); margin-top:4px;}
+  .rw-hero{ position:relative; margin:16px auto 6px; width:160px; height:160px;
+    display:grid; place-items:center; background:radial-gradient(circle at 50% 45%, var(--blue-light), #fff 70%);
+    border-radius:50%;}
+  .rw-hero img{ width:130px; height:130px; object-fit:contain; filter:drop-shadow(0 6px 12px rgba(0,0,0,.18)); animation:bob 2s ease-in-out infinite;}
+  @keyframes bob{ 0%,100%{transform:translateY(0);} 50%{transform:translateY(-7px);}}
+  .rw-new{ position:absolute; top:6px; right:2px; background:var(--red); color:#fff;
+    font-size:11px; font-weight:800; padding:4px 10px; border-radius:999px; transform:rotate(6deg);}
+  .rw-name{ font-size:22px; font-weight:800; margin-top:6px;}
+  .rw-tier{ display:inline-block; font-size:12px; font-weight:800; color:#fff; padding:4px 12px; border-radius:999px; margin-top:6px;}
+  .rw-motif{ font-size:13px; color:var(--gray-500); margin-top:8px;}
+  .rw-rewards{ display:flex; gap:10px; margin:18px 0 6px;}
+  .rw-rewards .cell{ flex:1; background:var(--gray-100); border-radius:14px; padding:12px 8px;}
+  .rw-rewards .cell .ic{ font-size:24px;}
+  .rw-rewards .cell .v{ font-size:15px; font-weight:800; margin-top:4px; color:var(--ink);}
+  .rw-rewards .cell .k{ font-size:11px; color:var(--gray-500); margin-top:2px;}
 </style>
 </head>
 <body>
@@ -320,6 +346,26 @@
 </div>
 
 <div class="toast" id="toast"></div>
+
+<!-- 획득 로컬몬 보상 팝업 -->
+<div class="reward-dim" id="rewardDim">
+  <div class="reward-card">
+    <div class="rw-title" id="rwTitle">🎉 로컬몬 획득!</div>
+    <div class="rw-sub" id="rwSub">영수증 인증으로 로컬몬을 만났어요</div>
+    <div class="rw-hero">
+      <div class="rw-new" id="rwNew">NEW</div>
+      <img id="rwImg" src="" alt="">
+    </div>
+    <div class="rw-name" id="rwName"></div>
+    <div class="rw-tier" id="rwTier"></div>
+    <div class="rw-motif" id="rwMotif"></div>
+    <div class="rw-rewards">
+      <div class="cell"><div class="ic" id="rwFoodIc">🍽️</div><div class="v" id="rwFood"></div><div class="k">먹이 획득</div></div>
+      <div class="cell"><div class="ic">💰</div><div class="v" id="rwPt"></div><div class="k">포인트 적립</div></div>
+    </div>
+    <button class="btn btn-blue" onclick="closeReward()">확인</button>
+  </div>
+</div>
 
 <script>
 /* ================================================================
@@ -629,19 +675,66 @@ function showReceiptResult(text){
   
   // 보상 데이터에 foodType 추가
   state.lastReward = { pt, region, foodType: isSpecial ? "special" : "general" };
-  document.getElementById("ocrResult").classList.add("show");
+  const resultEl = document.getElementById("ocrResult");
+  resultEl.classList.add("show");
+  // 결과가 화면 아래에 가려지지 않도록 스크롤
+  setTimeout(()=>resultEl.scrollIntoView({ behavior:"smooth", block:"end" }), 100);
 }
 function confirmReceipt(){
   const r = state.lastReward || { pt: 120, foodType: "general" };
   state.point += r.pt;
-  
+
   // 인벤토리에 먹이 개수 추가
   state.food[r.foodType] += 1;
-  
-  if(r.region && !state.dex.includes(r.region.char)) state.dex.push(r.region.char);
+
+  // 새로 획득하는 로컬몬인지 먼저 판별 (dex에 추가하기 전)
+  const isNewMon = !!(r.region && !state.dex.includes(r.region.char));
+  if(isNewMon) state.dex.push(r.region.char);
   syncPoint();
   closeOCR();
-  toast(`+${r.pt}P 적립 및 ${r.foodType === 'special' ? '특산물' : '일반'} 먹이 획득!`);
+  // 어떤 로컬몬/먹이를 얻었는지 팝업으로 안내
+  openReward(r.region, isNewMon, r.foodType, r.pt);
+}
+
+// ---- 획득 로컬몬 보상 팝업 ----
+function openReward(region, isNew, foodType, pt){
+  const dim = document.getElementById("rewardDim");
+  const foodName = foodType === "special" ? "특산물 먹이" : "일반 먹이";
+  document.getElementById("rwFood").textContent = "+1 " + foodName;
+  document.getElementById("rwFoodIc").textContent = foodType === "special" ? "🌱" : "🍪";
+  document.getElementById("rwPt").textContent = "+" + pt.toLocaleString() + "P";
+
+  const hero = dim.querySelector(".rw-hero");
+  const newBadge = document.getElementById("rwNew");
+  if(region){
+    const m = region.mon;
+    hero.style.display = "grid";
+    document.getElementById("rwTitle").textContent = isNew ? "🎉 새로운 로컬몬 획득!" : "🎉 로컬몬을 만났어요!";
+    document.getElementById("rwSub").textContent = region.label + "에서 나타났어요";
+    document.getElementById("rwImg").src = "/characters/" + m.img;
+    document.getElementById("rwName").textContent = m.name;
+    const tierEl = document.getElementById("rwTier");
+    tierEl.textContent = starOf(m.tier) + " " + m.tier;
+    tierEl.className = "rw-tier b-" + m.grade;
+    tierEl.style.display = "inline-block";
+    document.getElementById("rwMotif").textContent = "🌱 " + m.motif;
+    document.getElementById("rwMotif").style.display = "block";
+    newBadge.style.display = isNew ? "block" : "none";
+  } else {
+    // 일반 구매 — 로컬몬 없이 먹이/포인트만
+    hero.style.display = "none";
+    newBadge.style.display = "none";
+    document.getElementById("rwTitle").textContent = "🍪 일반 구매 인증 완료!";
+    document.getElementById("rwSub").textContent = "먹이와 포인트를 획득했어요";
+    document.getElementById("rwName").textContent = "";
+    document.getElementById("rwTier").style.display = "none";
+    document.getElementById("rwMotif").style.display = "none";
+  }
+  dim.classList.add("show");
+}
+function closeReward(){
+  document.getElementById("rewardDim").classList.remove("show");
+  if(document.getElementById("v-monster").classList.contains("on")) renderMonsters();
 }
 
 // ---- 공통 ----
