@@ -457,6 +457,16 @@ const ACHIEVEMENTS = [
 // 먹이 경험치
 const FEED = { general:{xp:10}, local:{xp:30}, special:{xp:100} };
 
+// 랭크 세팅: needXp = 해당 랭크에서 다음 랭크까지 채워야 할 XP(= 표의 '필요 누적 XP')
+//            reward = 그 랭크에 '도달'했을 때 지급되는 보상(P)
+const RANKS = [
+  { tier:"노말", grade:"normal", needXp:0,     reward:250   },
+  { tier:"희귀", grade:"rareK",  needXp:200,   reward:500   },
+  { tier:"레어", grade:"rare",   needXp:1000,  reward:1500  },
+  { tier:"에픽", grade:"epic",   needXp:5000,  reward:3000  },
+  { tier:"전설", grade:"legend", needXp:30000, reward:10000 },
+];
+
 /* ================================================================
    ⬆⬆⬆  DATA 끝. 아래는 로직 (안 건드려도 됨)  ⬆⬆⬆
    ================================================================ */
@@ -747,10 +757,6 @@ function toast(msg){
   clearTimeout(window._tt); window._tt=setTimeout(()=>t.classList.remove("show"),1900);
 }
 
-// 몬스터의 랭크(티어) 순서 정의
-const TIERS = ["노말", "희귀", "레어", "에픽", "전설"];
-const TIER_GRADES = ["normal", "rareK", "rare", "epic", "legend"];
-
 function feedMon(foodType) {
   if (!state.curMon) return; 
   
@@ -768,14 +774,19 @@ function feedMon(foodType) {
   m.xp += gainedXp;
   
   if (m.xp >= m.need) {
-    let tIndex = TIERS.indexOf(m.tier);
+    let tIndex = RANKS.findIndex(r => r.tier === m.tier);
     
-    if (tIndex >= 0 && tIndex < TIERS.length - 1) {
-      m.xp -= m.need; 
-      m.need = Math.floor(m.need * 1.5); 
+    if (tIndex >= 0 && tIndex < RANKS.length - 1) {
+      m.xp -= m.need;              // 초과 XP 이월
+      const next = RANKS[tIndex + 1];
       
-      m.tier = TIERS[tIndex + 1];
-      m.grade = TIER_GRADES[tIndex + 1];
+      m.tier  = next.tier;
+      m.grade = next.grade;
+      m.need  = next.needXp;       // 다음 랭크의 바 목표치 = 표의 '필요 누적 XP'
+      
+      // ★ 랭크 도달 보상 지급 ★
+      state.point += next.reward;
+      syncPoint();
       
       // ★ 배돌이 전용 진화 로직 ★
       if (m.motif === "나주 배") {
@@ -786,7 +797,7 @@ function feedMon(foodType) {
          }
       }
       
-      toast(`🎉 축하합니다! ${m.name}(으)로 진화했어요!`);
+      toast(`🎉 ${m.name}(으)로 진화! +${next.reward.toLocaleString()}P 보상 지급!`);
     } else {
       m.xp = m.need; 
       toast(`👑 ${m.name}은(는) 이미 최고 랭크입니다!`);
